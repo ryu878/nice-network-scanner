@@ -24,6 +24,7 @@ python3 network_scanner.py --devices
 ```
 python3 network_scanner.py --connections
 ```
+
 ### Show only system information:
 ```
 python3 network_scanner.py --info
