@@ -7,11 +7,15 @@ import argparse
 
 
 
+NAME = 'network_scanner.py'
+VER = '231125'
+
+
 class NetworkScanner:
     def __init__(self):
         self.results = []
     
-    
+
     def get_local_ip(self) -> str:
         """Get local IP address"""
         try:
@@ -221,4 +225,5 @@ def main():
 
 
 if __name__ == "__main__":
+    print(f'{NAME} {VER} is running...')
     main()
