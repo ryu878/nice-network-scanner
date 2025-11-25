@@ -88,7 +88,7 @@ class NetworkScanner:
     
     def display_network_devices(self):
         """Display network devices with proper pandas tables"""
-        print("🖧 NETWORK DEVICES SCAN")
+        print("🖧  NETWORK DEVICES SCAN")
         print("=" * 80)
         
         devices = self.scan_with_nmap()
