@@ -11,6 +11,7 @@ class NetworkScanner:
     def __init__(self):
         self.results = []
     
+    
     def get_local_ip(self) -> str:
         """Get local IP address"""
         try:
@@ -20,12 +21,14 @@ class NetworkScanner:
         except:
             return "127.0.0.1"
     
+
     def get_network_range(self) -> str:
         """Determine network range based on local IP"""
         local_ip = self.get_local_ip()
         ip_parts = local_ip.split('.')
         return f"{ip_parts[0]}.{ip_parts[1]}.{ip_parts[2]}.0/24"
     
+
     def scan_with_nmap(self) -> List[Dict]:
         """Scan network using nmap"""
         network_range = self.get_network_range()
@@ -86,6 +89,7 @@ class NetworkScanner:
             print(f"⚠️  Nmap scan failed: {e}")
             return []
     
+
     def display_network_devices(self):
         """Display network devices with proper pandas tables"""
         print("🖧  NETWORK DEVICES SCAN")
@@ -112,6 +116,7 @@ class NetworkScanner:
         print(f"   • Your local IP: {self.get_local_ip()}")
         print(f"   • Network range: {self.get_network_range()}")
     
+
     def get_current_connections(self) -> List[Dict]:
         """Get current network connections to the system"""
         try:
@@ -139,6 +144,7 @@ class NetworkScanner:
             print(f"⚠️  Could not get connections: {e}")
             return []
     
+
     def display_current_connections(self):
         """Display current connections with pandas table"""
         print("\n🔗 CURRENT NETWORK CONNECTIONS")
@@ -157,6 +163,7 @@ class NetworkScanner:
         print(df.to_string(index=False))  # This shows the actual pandas table
         print("\n" + "=" * 80)
     
+
     def display_system_info(self):
         """Display system information with pandas table"""
         print("\n💻 SYSTEM NETWORK INFORMATION")
@@ -190,6 +197,7 @@ class NetworkScanner:
         except Exception as e:
             print(f"❌ Could not get system info: {e}")
 
+
 def main():
     parser = argparse.ArgumentParser(description='Network Users Scanner with Pandas Tables')
     parser.add_argument('--devices', action='store_true', help='Scan network devices only')
@@ -210,6 +218,7 @@ def main():
         scanner.display_system_info()
         scanner.display_network_devices()
         scanner.display_current_connections()
+
 
 if __name__ == "__main__":
     main()
