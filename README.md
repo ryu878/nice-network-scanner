@@ -6,8 +6,10 @@ Network Users Scanner with Pandas Output. Displays connected devices and network
 ## Install required packages:
 ```
 sudo apt update
-sudo apt install python3-pip nmap iproute2
-pip3 install pandas
+sudo apt install nmap iproute2
+pip install pandas
+pip install jinja2
+
 ```
 ## Run the script:
 ```
