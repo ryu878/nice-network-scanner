@@ -1,14 +1,30 @@
+#!/usr/bin/env python3
+"""
+Network Users Scanner with Pandas Output
+Displays connected devices and network information in a nice table format
+"""
+
 import pandas as pd
 import subprocess
 import socket
 import platform
 import re
+import sys
 from typing import List, Dict
 import argparse
 
 class NetworkScanner:
     def __init__(self):
         self.results = []
+        self.has_jinja2 = self.check_jinja2()
+    
+    def check_jinja2(self) -> bool:
+        """Check if jinja2 is available for pandas styling"""
+        try:
+            import jinja2
+            return True
+        except ImportError:
+            return False
     
     def get_local_ip(self) -> str:
         """Get local IP address"""
@@ -53,9 +69,21 @@ class NetworkScanner:
                     
                     # Start new device
                     host_info = line.replace('Nmap scan report for ', '').strip()
+                    if '(' in host_info and ')' in host_info:
+                        hostname = host_info.split('(')[1].split(')')[0]
+                        ip = host_info.split('(')[0].strip()
+                    else:
+                        parts = host_info.split()
+                        if len(parts) > 1:
+                            hostname = parts[0]
+                            ip = parts[-1]
+                        else:
+                            hostname = 'Unknown'
+                            ip = parts[0]
+                    
                     current_device = {
-                        'Hostname': host_info.split(' ')[0] if '(' not in host_info else host_info.split('(')[1].replace(')', ''),
-                        'IP': host_info.split(' ')[-1] if '(' in host_info else host_info,
+                        'Hostname': hostname,
+                        'IP': ip,
                         'MAC': 'Unknown',
                         'Vendor': 'Unknown',
                         'Status': 'Up'
@@ -91,8 +119,9 @@ class NetworkScanner:
             ip = f"{base_ip}.{i}"
             try:
                 # Ping with 1 packet, timeout 1 second
+                param = '-n' if platform.system().lower() == 'windows' else '-c'
                 result = subprocess.run(
-                    ['ping', '-c', '1', '-W', '1', ip],
+                    ['ping', param, '1', '-W', '1', ip],
                     capture_output=True,
                     text=True,
                     timeout=2
@@ -132,12 +161,15 @@ class NetworkScanner:
                 if line.strip():
                     parts = line.split()
                     if len(parts) >= 6:
+                        local_addr = parts[4] if len(parts) > 4 else 'Unknown'
+                        remote_addr = parts[5] if len(parts) > 5 else 'Unknown'
+                        
                         connections.append({
                             'Protocol': parts[0],
-                            'Local Address': parts[4],
-                            'Remote Address': parts[5],
+                            'Local Address': local_addr,
+                            'Remote Address': remote_addr,
                             'State': parts[1] if len(parts) > 1 else 'Unknown',
-                            'Process': parts[-1] if 'users' in parts else 'Unknown'
+                            'Process': parts[-1] if 'users' in line else 'Unknown'
                         })
             
             return connections
@@ -145,6 +177,34 @@ class NetworkScanner:
         except Exception as e:
             print(f"⚠️  Could not get connections: {e}")
             return []
+    
+    def format_dataframe(self, df, title="", style_type="default"):
+        """Format DataFrame with or without styling"""
+        if self.has_jinja2:
+            try:
+                if style_type == "default":
+                    styled = df.style.set_properties(**{
+                        'background-color': '#f8f9fa',
+                        'color': 'black',
+                        'border-color': 'white'
+                    }).set_caption(title)
+                elif style_type == "connections":
+                    styled = df.style.set_properties(**{
+                        'background-color': '#f0f8ff',
+                        'color': 'black'
+                    }).set_caption(title)
+                else:  # info style
+                    styled = df.style.set_properties(**{
+                        'background-color': '#fff3cd',
+                        'color': 'black'
+                    }).set_caption(title)
+                
+                return styled
+            except Exception:
+                # Fallback if styling fails
+                return df
+        else:
+            return df
     
     def display_network_devices(self):
         """Display network devices in a nice pandas table"""
@@ -161,28 +221,14 @@ class NetworkScanner:
         # Create DataFrame
         df = pd.DataFrame(devices)
         
-        # Style the DataFrame
-        styled_df = df.style\
-            .set_properties(**{
-                'background-color': '#f8f9fa',
-                'color': 'black',
-                'border-color': 'white'
-            })\
-            .set_table_styles([
-                {'selector': 'th', 'props': [('background-color', '#007acc'), 
-                                           ('color', 'white'),
-                                           ('font-weight', 'bold'),
-                                           ('padding', '8px'),
-                                           ('border', '1px solid white')]},
-                {'selector': 'td', 'props': [('padding', '6px'),
-                                           ('border', '1px solid #ddd')]},
-                {'selector': 'tr:hover', 'props': [('background-color', '#ffff99')]}
-            ])\
-            .hide(axis='index')\
-            .set_caption(f"📱 Found {len(devices)} devices on network")
-        
         # Display the table
-        print(styled_df.to_string())
+        if self.has_jinja2:
+            styled_df = self.format_dataframe(df, f"📱 Found {len(devices)} devices on network")
+            print(styled_df.to_string())
+        else:
+            print(f"📱 Found {len(devices)} devices on network")
+            print(df.to_string(index=False))
+            print("\n💡 Tip: Install jinja2 for better table formatting: pip install jinja2")
         
         # Summary statistics
         print(f"\n📊 Summary:")
@@ -203,22 +249,12 @@ class NetworkScanner:
         
         df = pd.DataFrame(connections)
         
-        styled_df = df.style\
-            .set_properties(**{
-                'background-color': '#f0f8ff',
-                'color': 'black',
-                'border-color': 'white'
-            })\
-            .set_table_styles([
-                {'selector': 'th', 'props': [('background-color', '#28a745'), 
-                                           ('color', 'white'),
-                                           ('font-weight', 'bold')]},
-                {'selector': 'tr:hover', 'props': [('background-color', '#e8f4fd')]}
-            ])\
-            .hide(axis='index')\
-            .set_caption(f"🌐 Active connections: {len(connections)}")
-        
-        print(styled_df.to_string())
+        if self.has_jinja2:
+            styled_df = self.format_dataframe(df, f"🌐 Active connections: {len(connections)}", "connections")
+            print(styled_df.to_string())
+        else:
+            print(f"🌐 Active connections: {len(connections)}")
+            print(df.to_string(index=False))
     
     def display_system_info(self):
         """Display system network information"""
@@ -248,21 +284,41 @@ class NetworkScanner:
                 info_data.append({'Property': 'Default Gateway', 'Value': default_route[0]})
             
             df = pd.DataFrame(info_data)
-            styled_df = df.style.hide(axis='index').set_properties(**{
-                'background-color': '#fff3cd',
-                'color': 'black'
-            })
             
-            print(styled_df.to_string())
+            if self.has_jinja2:
+                styled_df = self.format_dataframe(df, "System Information", "info")
+                print(styled_df.to_string())
+            else:
+                print(df.to_string(index=False))
             
         except Exception as e:
             print(f"❌ Could not get system info: {e}")
 
+def check_dependencies():
+    """Check and install required dependencies"""
+    try:
+        import pandas
+    except ImportError:
+        print("❌ pandas is required but not installed.")
+        print("Installing pandas...")
+        subprocess.run([sys.executable, '-m', 'pip', 'install', 'pandas'])
+        print("✅ pandas installed successfully!")
+    
+    try:
+        import jinja2
+    except ImportError:
+        print("💡 jinja2 is not installed. Table styling will be basic.")
+        print("For better formatting, install jinja2: pip install jinja2")
+
 def main():
+    # Check dependencies first
+    check_dependencies()
+    
     parser = argparse.ArgumentParser(description='Network Users Scanner with Pandas Output')
     parser.add_argument('--devices', action='store_true', help='Scan network devices only')
     parser.add_argument('--connections', action='store_true', help='Show current connections only')
     parser.add_argument('--info', action='store_true', help='Show system info only')
+    parser.add_argument('--simple', action='store_true', help='Use simple output without colors')
     
     args = parser.parse_args()
     
