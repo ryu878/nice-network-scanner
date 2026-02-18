@@ -65,32 +65,27 @@ The pandas output provides a clean, professional-looking table that's much easie
 
 ***
 
-## 📞 Contact Me
+## 📌 About
 
-I develop trading bots of any complexity, dashboards, and indicators for crypto exchanges, forex, and stocks. 🚀
+Quantitative Researcher & Algorithmic Trader
+Designing and operating systematic trading strategies and low-latency trading infrastructure across crypto and multi-asset markets.
 
-To contact me, please send a message:
+Specializations:
+- Strategy research & validation
+- Market microstructure analysis
+- Backtesting frameworks
+- Execution engines & order lifecycle management
+- Real-time market data pipelines
+- Production trading systems (24/7)
 
-*   **Telegram:** [https://t.me/ryu8777](https://t.me/ryu8777) ✈️
-*   **Discord:** [https://discord.gg/zSw58e9Uvf](https://discord.gg/zSw58e9Uvf) 🤝
+## 📞 Contact
 
+Email: ryu8777@gmail.com
+
+LinkedIn: linkedin.com/in/yourname
+GitHub: github.com/yourname
+
+* **Telegram:** [https://t.me/ryu8777](https://t.me/ryu8777)
+* **Discord:** [https://discord.gg/zSw58e9Uvf](https://discord.gg/zSw58e9Uvf)
+* 
 ***
-
-## 🤝 Become My Crypto Partner
-
-Start your trading journey on Bybit! Join using my referral link below:
-
-**Join Bybit:** [https://www.bybit.com/invite?ref=P11NJW](https://www.bybit.com/invite?ref=P11NJW)
-
-***
-
-## 🖥️ VPS for Your Bots and Scripts
-
-Keep your bots running 24/7! I prefer and recommend using **DigitalOcean**.
-
-[![DigitalOcean Referral Badge](https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%202.svg)](https://www.digitalocean.com/?refcode=3d7f6e57bc04&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
-
-**Get $200 in credit over 60 days** by using my referral link:
-
-👉 [https://m.do.co/c/3d7f6e57bc04](https://m.do.co/c/3d7f6e57bc04)
-
