@@ -65,24 +65,30 @@ The pandas output provides a clean, professional-looking table that's much easie
 
 ***
 
-## 📌 About Me
+## 📌 Quantitative Researcher | Algorithmic Trader | Trading Systems Architect
 
-Quantitative Researcher & Algorithmic Trader
-Designing and operating systematic trading strategies and low-latency trading infrastructure across crypto and multi-asset markets.
+Quantitative researcher and trading systems engineer with end-to-end ownership of systematic strategies — from research and statistical validation to low-latency execution and production deployment.
 
-Specializations:
-- Strategy research & validation
-- Market microstructure analysis
-- Backtesting frameworks
-- Execution engines & order lifecycle management
-- Real-time market data pipelines
-- Production trading systems (24/7)
+Core focus areas:
+- Systematic strategy design and validation
+- Market microstructure analysis (order book dynamics, liquidity, spread behavior)
+- Backtesting framework development (tick-level and historical data)
+- Execution engine architecture and order lifecycle management
+- Real-time market data processing
+- Risk-aware system design
+- Production-grade trading infrastructure (24/7 environments)
 
-## 📞 Contact
+Experience across crypto (CEX, DEX), FX, and exchange-traded markets.
+
+## Technical Stack
+
+Languages: Python, C++, MQL5
+Execution & Connectivity: REST, WebSocket, FIX
+Infrastructure: Linux, Docker, Redis, PostgreSQL
+Analytics: NumPy, Pandas, custom backtesting frameworks
+
+## Contact
 
 Email: ryu8777@gmail.com
 
-* **Telegram:** [https://t.me/ryu8777](https://t.me/ryu8777)
-* **Discord:** [https://discord.gg/zSw58e9Uvf](https://discord.gg/zSw58e9Uvf)
-* 
 ***
