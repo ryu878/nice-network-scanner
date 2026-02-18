@@ -65,7 +65,7 @@ The pandas output provides a clean, professional-looking table that's much easie
 
 ***
 
-## 📌 About
+## 📌 About Me
 
 Quantitative Researcher & Algorithmic Trader
 Designing and operating systematic trading strategies and low-latency trading infrastructure across crypto and multi-asset markets.
@@ -81,9 +81,6 @@ Specializations:
 ## 📞 Contact
 
 Email: ryu8777@gmail.com
-
-LinkedIn: linkedin.com/in/yourname
-GitHub: github.com/yourname
 
 * **Telegram:** [https://t.me/ryu8777](https://t.me/ryu8777)
 * **Discord:** [https://discord.gg/zSw58e9Uvf](https://discord.gg/zSw58e9Uvf)
