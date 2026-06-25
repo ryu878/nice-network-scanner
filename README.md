@@ -61,34 +61,3 @@ The script will display organized tables showing:
 
 The pandas output provides a clean, professional-looking table that's much easier to read than raw command output!
 
-
-
-***
-
-## 📌 Quantitative Researcher | Algorithmic Trader | Trading Systems Architect
-
-Quantitative researcher and trading systems engineer with end-to-end ownership of systematic strategies — from research and statistical validation to low-latency execution and production deployment.
-
-Core focus areas:
-- Systematic strategy design and validation
-- Market microstructure analysis (order book dynamics, liquidity, spread behavior)
-- Backtesting framework development (tick-level and historical data)
-- Execution engine architecture and order lifecycle management
-- Real-time market data processing
-- Risk-aware system design
-- Production-grade trading infrastructure (24/7 environments)
-
-Experience across crypto (CEX, DEX), FX, and exchange-traded markets.
-
-## Technical Stack
-
-- Languages: Python, C++, MQL5
-- Execution & Connectivity: REST, WebSocket, FIX
-- Infrastructure: Linux, Docker, Redis, PostgreSQL
-- Analytics: NumPy, Pandas, custom backtesting frameworks
-
-## Contact
-
-Email: ryu8777@gmail.com
-
-***
